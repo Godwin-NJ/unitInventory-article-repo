@@ -4,11 +4,12 @@ const { createCustomer, getAllCustomer } = require("../Controllers/customer");
 const {
   authentication,
   authorization,
-} = require("../Middleware/authenticationMware");
+} = require("../Middleware/authenticationMiddleware");
 
+// router.route("/").post(createCustomer).get(getAllCustomer);
 router
   .route("/")
-  .post([authentication, authorization("admin")], createCustomer)
-  .get(getAllCustomer);
+  .post([authentication, authorization("admin", "user")], createCustomer)
+  .get([authentication, authorization("admin", "user")], getAllCustomer);
 
 module.exports = router;

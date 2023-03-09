@@ -16,7 +16,7 @@ const customerSchema = new Schema(
       maxLength: 500,
     },
     PhoneNumber: {
-      type: Number,
+      type: String,
       required: true,
       trim: true,
     },

@@ -2,12 +2,17 @@ const { StatusCodes } = require("http-status-codes");
 const Customer = require("../Models/customerModel");
 
 const createCustomer = async (req, res) => {
-  const { name, address, PhoneNumber } = req.body;
-  if (!name || !address || !PhoneNumber) {
+  const { name, address, PhoneNumber, customerNumber } = req.body;
+  if (!name || !address || !PhoneNumber || !customerNumber) {
     return;
   }
 
-  const customerAcc = await Customer.create({ name, address, PhoneNumber });
+  const customerAcc = await Customer.create({
+    name,
+    address,
+    PhoneNumber,
+    customerNumber,
+  });
   res.status(StatusCodes.CREATED).json({ customerAcc });
 };
 

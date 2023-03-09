@@ -50,16 +50,20 @@ userSchema.pre("save", async function () {
 });
 
 userSchema.method("createJWT", async function () {
-  return await jwt.sign(
+  const createToken = jwt.sign(
     {
       userID: this._id,
       userName: this.userName,
       email: this.email,
       role: this.role,
     },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES }
+    `${process.env.JWT_SECRET}`,
+    {
+      // expiresIn: `${process.env.JWT_EXPIRES}`,
+      expiresIn: "1h",
+    }
   );
+  return createToken;
 });
 
 userSchema.method("comparePassword", async function (userPassword) {

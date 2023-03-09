@@ -1,10 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
-const { CustomAError } = require("../Errors");
+// const { CustomAError } = require("../Errors");
 
 const errorHandler = async (err, req, res, next) => {
-  // if (err instanceof CustomAError) {
-  //   res.status(err.statusCode).json({ msg: err.message });
-  // }
   let customErr = {
     status: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     message: err.message || "something went wrong",

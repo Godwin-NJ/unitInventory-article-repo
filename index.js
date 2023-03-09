@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
+// require("dotenv").config()
 require("express-async-errors");
 const express = require("express");
 const app = express();
@@ -9,6 +10,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const xss = require("xss-clean");
+const mongoose = require("mongoose");
+const { Customer, UserAuth } = require("./Routes");
 
 // middlewares
 app.set("trust proxy", 1);
@@ -28,11 +31,30 @@ app.use(xss());
 
 // route middleware
 app.get("/", (req, res) => {
-  res.send("Node-DOcker Article");
+  res.send("Node-Docker Article");
 });
+app.use("/api/v1/customer", Customer);
+app.use("/api/v1/user", UserAuth);
 
 const port = process.env.PORT || 3000;
 
+// use when starting application locally
+let mongoUrlLocal = "mongodb://sa:admin1@127.0.0.1:27017";
+
+// use when starting application as docker container
+// let mongoUrlDocker = "mongodb://sa:admin1@mongodb";
+let mongoUrlDocker = "mongodb://sa:admin1@mongodb";
+
+// connect to mongo database using mongoose
+const connectToDB = async () => {
+  try {
+    await mongoose.connect(mongoUrlDocker);
+  } catch (err) {
+    console.log(`error connecting db : ${err}`);
+  }
+};
+
 app.listen(port, () => {
+  connectToDB();
   console.log(`app listening on port ${port}...`);
 });

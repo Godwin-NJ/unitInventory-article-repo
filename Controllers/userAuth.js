@@ -19,7 +19,10 @@ const registerUser = async (req, res) => {
     throw new BadRequestError("error creating user");
   }
 
-  const token = user.createJWT();
+  const token = await user.createJWT();
+  if (!token) {
+    return;
+  }
   res.status(StatusCodes.CREATED).json({
     Username: user.userName,
     email: user.email,
