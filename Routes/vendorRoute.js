@@ -9,7 +9,7 @@ const {
 const {
   authentication,
   authorization,
-} = require("../Middleware/authenticationMware");
+} = require("../Middleware/authenticationMiddleware");
 
 router
   .route("/")

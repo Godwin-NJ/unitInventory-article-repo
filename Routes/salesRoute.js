@@ -5,7 +5,7 @@ const {
   getAllSales,
   getSingleSale,
 } = require("../Controllers/sales");
-const { authentication } = require("../Middleware/authenticationMware");
+const { authentication } = require("../Middleware/authenticationMiddleware");
 
 router
   .route("/")

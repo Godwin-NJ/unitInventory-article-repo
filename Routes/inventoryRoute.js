@@ -10,11 +10,11 @@ const {
 const {
   authentication,
   authorization,
-} = require("../Middleware/authenticationMware");
+} = require("../Middleware/authenticationMiddleware");
 
 router
   .route("/")
-  .get(authentication, authorization("admin", "user"), getAllProduct)
+  .get([authentication, authorization("admin", "user")], getAllProduct)
   .post([authentication], createProduct);
 
 router.route("/stockholding").get([authentication], stockHolding);

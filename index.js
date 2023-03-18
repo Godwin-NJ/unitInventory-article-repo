@@ -11,7 +11,9 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const mongoose = require("mongoose");
-const { Customer, UserAuth } = require("./Routes");
+// const { Customer, UserAuth } = require("./Routes");
+const Customer = require("./Routes/customerRoute");
+const UserAuth = require("./Routes/userAuthRoute");
 
 // middlewares
 app.set("trust proxy", 1);
@@ -42,8 +44,7 @@ const port = process.env.PORT || 3000;
 let mongoUrlLocal = "mongodb://sa:admin1@127.0.0.1:27017";
 
 // use when starting application as docker container
-// let mongoUrlDocker = "mongodb://sa:admin1@mongodb";
-let mongoUrlDocker = "mongodb://sa:admin1@mongodb";
+const mongoUrlDocker = "mongodb://sa:admin1@mongodb";
 
 // connect to mongo database using mongoose
 const connectToDB = async () => {
